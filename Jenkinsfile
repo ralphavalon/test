@@ -10,7 +10,7 @@ node {
 
     stage('Archive') {
 	sh 'ls -lrt'
-        junit allowEmptyResults: true, testResults: '**/target/**/TEST*.xml'
+        junit allowEmptyResults: true, testResults: 'target/**/TEST*.xml'
     }
 
 }
