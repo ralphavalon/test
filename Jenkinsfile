@@ -6,7 +6,7 @@ node {
     stage('Build') {
 	version = '1.0.' + env.BUILD_NUMBER
         currentBuild.displayName = version
-	sh './mvnw -B -V -U -e versions:set -DnewVersion=$version'
+	sh "./mvnw -B -V -U -e versions:set -DnewVersion=$version"
         sh './mvnw -B -V -U -e clean package'
     }
 
