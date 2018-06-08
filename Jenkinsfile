@@ -11,14 +11,19 @@ node {
     }
 
     stage('Archive') {
-	    sh 'ls -lrt'
-        if (env.BRANCH_NAME == 'master') {
-            echo 'I only execute on the master branch'
-        } else {
-            echo 'I execute elsewhere'
-        }
         junit allowEmptyResults: true, testResults: '**/target/**/TEST*.xml'
         archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+    }
+
+    stage('Deploy') {
+        sh 'ls -lrth'
+        if (currentBuild.result == null || currentBuild.result == 'SUCCESS') { 
+            if (env.BRANCH_NAME == 'master') {
+                echo 'Deploy PROD - I only execute on the master branch'
+            } else {
+                echo 'Deploy Staging - I execute elsewhere'
+            }
+        }
     }
 
 }
